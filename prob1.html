@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    
+    <form id="weatherForm">
+        <label for="cityInput">Enter City Name:</label>
+        <input type="text" id="cityInput" name="cityInput">
+        <button type="submit">Fetch Weather</button>
+    </form>
+    
+    <div id="weatherInfo">
+    </div>
+
+    <script>
+        const weatherForm = document.getElementById("weatherForm");
+        const weatherInfo = document.getElementById("weatherInfo");
+
+        weatherForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const city = document.getElementById("cityInput").value;
+            
+            try {
+                const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2594dbb563434400b13214026240504&q=${city}&aqi=yes`);
+                const data = await response.json();
+
+                const currentWeather = `
+                    <h2>${data.location.name}</h2>
+                    <p>Current Time: ${data.location.localtime}</p>
+                    <p>Temperature: ${data.current.temp_f}°F</p>
+                    <p>Weather Condition: ${data.current.condition.text}</p>
+                    <p>Humidity: ${data.current.humidity}%</p>
+
+                `;
+                weatherInfo.innerHTML = currentWeather;
+            } catch (error) {
+                console.log("Error fetching data: ", error);
+                weatherInfo.innerHTML = "<p>Error fetching weather data. Please try again.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
