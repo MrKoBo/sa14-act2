@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        #movingBlock {
+            width: 150px;
+            height: 150px;
+            background-color: mediumorchid;
+            transform: translate(-50%, -50%);
+            transition: transform 0.75s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="movingBlock"></div>
+    <button id="controlButton">Move</button>
+    <script>
+        const movingBlock = document.getElementById('movingBlock');
+        const controlButton = document.getElementById('controlButton');
+        let hasMoved = false;
+
+        controlButton.addEventListener('click', function() {
+            if (!hasMoved) {
+                movingBlock.style.transform = 'translate(-50%, -50%) translateX(200px)';
+                hasMoved = true;
+            } else {
+                movingBlock.style.transform = 'translate(-50%, -50%)';
+                hasMoved = false;
+            }
+        });
+    </script>
+</body>
+</html>
