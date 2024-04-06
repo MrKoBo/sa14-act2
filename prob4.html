@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+    <h1>User Registration Form</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <script>
+        const registrationForm = document.getElementById("registrationForm");
+        const usernameInput = document.getElementById("username");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const usernameError = document.getElementById("usernameError");
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+
+        registrationForm.addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            if (validateForm()) {
+               console.log("Form submitted successfully!");
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            if (usernameInput.value.length < 6) {
+                usernameError.textContent = "Username must be at least 6 characters long.";
+                isValid = false;
+            } 
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.textContent = "Invalid email format.";
+                isValid = false;
+            }
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(passwordInput.value)) {
+                passwordError.textContent = "Password must be at least 8 characters long and contain at least one capital letter and one number.";
+                isValid = false;
+            } 
+            return isValid;
+        }
+    </script>
+</body>
+</head>
+</html>
